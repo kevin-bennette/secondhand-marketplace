@@ -10,6 +10,7 @@ import { SimilarProducts } from '../../components/marketplace/SimilarProducts'
 import { ChatWithSellerButton } from '../../components/messaging/ChatWithSellerButton'
 import { PageHeader } from '../../components/navigation/PageHeader'
 import { Screen } from '../../components/navigation/Screen'
+import { SaveButton } from '../../components/wishlist/SaveButton'
 import { useAuth, useCurrentUser } from '../../hooks/useAuth'
 import { useListings } from '../../hooks/useListings'
 
@@ -59,6 +60,9 @@ export function ProductDetailsPage() {
           <button type="button" onClick={goBack} aria-label="Go back" className="rounded-full bg-white/90 p-2 shadow hover:bg-white">
             <ChevronLeft className="h-5 w-5" />
           </button>
+          <div className="flex items-center gap-2">
+            <SaveButton listing={listing} variant="pill" />
+          </div>
         </div>
       </div>
 

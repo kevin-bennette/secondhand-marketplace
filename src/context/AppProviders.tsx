@@ -3,6 +3,7 @@ import { AuthProvider } from './AuthProvider'
 import { ChatProvider } from './ChatProvider'
 import { ListingsProvider } from './ListingsProvider'
 import { ToastProvider } from './ToastProvider'
+import { WishlistProvider } from './WishlistProvider'
 
 /**
  * Composes every application-wide provider. Each user story registers its
@@ -13,7 +14,9 @@ export function AppProviders({ children }: { children: ReactNode }) {
     <ToastProvider>
       <AuthProvider>
         <ListingsProvider>
-          <ChatProvider>{children}</ChatProvider>
+          <ChatProvider>
+            <WishlistProvider>{children}</WishlistProvider>
+          </ChatProvider>
         </ListingsProvider>
       </AuthProvider>
     </ToastProvider>
