@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { AuthProvider } from './AuthProvider'
+import { ListingsProvider } from './ListingsProvider'
 import { ToastProvider } from './ToastProvider'
 
 /**
@@ -9,7 +10,9 @@ import { ToastProvider } from './ToastProvider'
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <ToastProvider>
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <ListingsProvider>{children}</ListingsProvider>
+      </AuthProvider>
     </ToastProvider>
   )
 }
