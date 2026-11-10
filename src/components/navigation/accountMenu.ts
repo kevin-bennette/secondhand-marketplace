@@ -1,4 +1,4 @@
-import type { LucideIcon } from 'lucide-react'
+import { Package, type LucideIcon } from 'lucide-react'
 
 export interface AccountMenuItem {
   to: string
@@ -10,4 +10,6 @@ export interface AccountMenuItem {
 }
 
 /** Entries on the Account screen. User stories register their screens here. */
-export const accountMenu: AccountMenuItem[] = []
+export const accountMenu: AccountMenuItem[] = [
+  { to: '/my-listings', label: 'My Listings', description: 'Edit or delete items you are selling', icon: Package },
+]

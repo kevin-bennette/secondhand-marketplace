@@ -17,6 +17,12 @@ export interface ListingsContextValue {
   activeListings: Listing[]
   getListing: (id: string) => Listing | undefined
   createListing: (input: ListingInput, sellerId: string, location: string) => Listing
+  /** Fails with "access denied" unless actorId owns the listing. */
+  updateListing: (id: string, input: ListingInput, actorId: string) => OwnershipResult
+  /** Fails with "access denied" unless actorId owns the listing. */
+  deleteListing: (id: string, actorId: string) => OwnershipResult
 }
+
+export type OwnershipResult = { ok: true } | { ok: false; error: string }
 
 export const ListingsContext = createContext<ListingsContextValue | null>(null)
