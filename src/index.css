@@ -1,16 +1,6 @@
-@import "tailwindcss";
-
-@theme {
-  --color-primary: #0b6bff;
-  --color-primary-dark: #0857d1;
-  --color-primary-light: #e8f1ff;
-  --color-ink: #111827;
-  --color-muted: #6b7280;
-  --color-line: #e5e7eb;
-  --color-field: #f3f6fa;
-  --color-canvas: #e9edf3;
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html,
 body,
@@ -20,10 +10,7 @@ body,
 
 body {
   margin: 0;
-  background: var(--color-canvas);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+  @apply bg-canvas font-sans text-ink antialiased;
 }
 
 .no-scrollbar::-webkit-scrollbar {
