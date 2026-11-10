@@ -5,8 +5,9 @@ import { PhoneFrame } from './components/navigation/PhoneFrame'
 import { AppProviders } from './context/AppProviders'
 import { AccountPage } from './pages/Account/AccountPage'
 import { CreateListingPage } from './pages/CreateListing/CreateListingPage'
-import { HomePage } from './pages/Home/HomePage'
+import { MarketplacePage } from './pages/Marketplace/MarketplacePage'
 import { LoginPage } from './pages/Login/LoginPage'
+import { ProductDetailsPage } from './pages/ProductDetails/ProductDetailsPage'
 import { RegisterPage } from './pages/Register/RegisterPage'
 
 export default function App() {
@@ -23,10 +24,13 @@ export default function App() {
           {/* Authenticated area */}
           <Route element={<RequireAuth />}>
             <Route element={<AppLayout />}>
-              <Route index element={<HomePage />} />
+              <Route index element={<MarketplacePage />} />
               <Route path="/account" element={<AccountPage />} />
               <Route path="/sell" element={<CreateListingPage />} />
             </Route>
+
+            {/* Full-screen pages (no bottom navigation) */}
+            <Route path="/listing/:id" element={<ProductDetailsPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
