@@ -1,4 +1,4 @@
-import { Home, type LucideIcon } from 'lucide-react'
+import { Home, UserRound, type LucideIcon } from 'lucide-react'
 import type { ComponentType } from 'react'
 
 export interface NavItem {
@@ -12,4 +12,7 @@ export interface NavItem {
 }
 
 /** Bottom navigation entries. User stories append their own entries here. */
-export const navItems: NavItem[] = [{ to: '/', label: 'Home', icon: Home }]
+export const navItems: NavItem[] = [
+  { to: '/', label: 'Home', icon: Home },
+  { to: '/account', label: 'Account', icon: UserRound },
+]
