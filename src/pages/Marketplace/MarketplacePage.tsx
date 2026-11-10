@@ -1,11 +1,14 @@
 import { Plus } from 'lucide-react'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { buttonClasses } from '../../components/common/buttonStyles'
 import { ListingGrid } from '../../components/listings/ListingGrid'
+import { ActiveFilters } from '../../components/marketplace/ActiveFilters'
 import { CategoryChips } from '../../components/marketplace/CategoryChips'
 import { CategoryTiles } from '../../components/marketplace/CategoryTiles'
 import { FeaturedCarousel } from '../../components/marketplace/FeaturedCarousel'
+import { FilterButton } from '../../components/marketplace/FilterButton'
+import { FilterSheet } from '../../components/marketplace/FilterSheet'
 import { MarketplaceHeader } from '../../components/marketplace/MarketplaceHeader'
 import { SearchBar } from '../../components/marketplace/SearchBar'
 import { SearchResults } from '../../components/marketplace/SearchResults'
@@ -14,14 +17,22 @@ import { CATEGORIES } from '../../data/constants'
 import { useListings } from '../../hooks/useListings'
 import { useMarketplaceSearch } from '../../hooks/useMarketplaceSearch'
 import type { Category } from '../../types/listing'
-import { searchListings } from '../../utils/search'
+import { applyFilters, countActiveFilters, filtersFromParams, filtersToParams, type ListingFilters } from '../../utils/filters'
+import { matchesQuery } from '../../utils/search'
 
 export function MarketplacePage() {
   const { activeListings } = useListings()
-  const { query, category, setQuery, setCategory, reset } = useMarketplaceSearch()
+  const { query, category, params, setQuery, setCategory, update, reset } = useMarketplaceSearch()
+  const [filtersOpen, setFiltersOpen] = useState(false)
 
-  const isBrowsing = !query && !category
-  const results = useMemo(() => searchListings(activeListings, { query, category }), [activeListings, query, category])
+  const filters = useMemo(() => filtersFromParams(params), [params])
+  const activeFilterCount = countActiveFilters(filters)
+  const isBrowsing = !query && activeFilterCount === 0
+
+  const results = useMemo(
+    () => applyFilters(activeListings, filters).filter((listing) => matchesQuery(listing, query)),
+    [activeListings, filters, query],
+  )
 
   const counts = useMemo(
     () =>
@@ -34,6 +45,11 @@ export function MarketplacePage() {
 
   const featured = useMemo(() => activeListings.filter((listing) => listing.originalPrice).slice(0, 5), [activeListings])
 
+  const applyNewFilters = (next: ListingFilters) => {
+    update(filtersToParams(next))
+    setFiltersOpen(false)
+  }
+
   const summary = `${results.length} ${results.length === 1 ? 'result' : 'results'}${query ? ` for “${query}”` : ''}${category ? ` in ${category}` : ''}`
 
   return (
@@ -42,8 +58,14 @@ export function MarketplacePage() {
         <div className="border-b border-line bg-white">
           <MarketplaceHeader />
           <div className="flex flex-col gap-3 px-4 pb-3">
-            <SearchBar value={query} onSearch={setQuery} />
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <SearchBar value={query} onSearch={setQuery} />
+              </div>
+              <FilterButton activeCount={activeFilterCount} onClick={() => setFiltersOpen(true)} />
+            </div>
             <CategoryChips selected={category} onSelect={setCategory} />
+            <ActiveFilters filters={filters} onChange={(next) => update(filtersToParams(next))} />
           </div>
         </div>
       }
@@ -70,6 +92,8 @@ export function MarketplacePage() {
           <SearchResults listings={results} summary={summary} onReset={reset} />
         </div>
       )}
+
+      <FilterSheet open={filtersOpen} filters={filters} onApply={applyNewFilters} onClose={() => setFiltersOpen(false)} />
     </Screen>
   )
 }
