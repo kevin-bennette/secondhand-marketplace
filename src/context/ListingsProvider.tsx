@@ -69,9 +69,15 @@ export function ListingsProvider({ children }: { children: ReactNode }) {
     [checkOwnership, setListings],
   )
 
+  const markAsSold = useCallback(
+    (id: string) =>
+      setListings((current) => current.map((listing) => (listing.id === id ? { ...listing, status: 'sold' as const } : listing))),
+    [setListings],
+  )
+
   const value = useMemo<ListingsContextValue>(
-    () => ({ listings, activeListings, getListing, createListing, updateListing, deleteListing }),
-    [listings, activeListings, getListing, createListing, updateListing, deleteListing],
+    () => ({ listings, activeListings, getListing, createListing, updateListing, deleteListing, markAsSold }),
+    [listings, activeListings, getListing, createListing, updateListing, deleteListing, markAsSold],
   )
 
   return <ListingsContext.Provider value={value}>{children}</ListingsContext.Provider>

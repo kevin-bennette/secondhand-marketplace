@@ -21,6 +21,8 @@ export interface ListingsContextValue {
   updateListing: (id: string, input: ListingInput, actorId: string) => OwnershipResult
   /** Fails with "access denied" unless actorId owns the listing. */
   deleteListing: (id: string, actorId: string) => OwnershipResult
+  /** Removes a listing from sale once a (simulated) transaction completes. */
+  markAsSold: (id: string) => void
 }
 
 export type OwnershipResult = { ok: true } | { ok: false; error: string }
