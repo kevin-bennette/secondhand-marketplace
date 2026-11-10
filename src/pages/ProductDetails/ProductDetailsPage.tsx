@@ -52,7 +52,7 @@ export function ProductDetailsPage() {
   ) : listing.status === 'active' ? (
     <div className="grid grid-cols-2 gap-3">
       <ChatWithSellerButton listing={listing} />
-      <BuyNowButton listing={listing} afterPurchasePath={() => `/profile/${listing.sellerId}`} />
+      <BuyNowButton listing={listing} afterPurchasePath={(transactionId) => `/transactions/${transactionId}`} />
     </div>
   ) : (
     <p className="py-2 text-center text-sm text-muted">This item has been sold.</p>
