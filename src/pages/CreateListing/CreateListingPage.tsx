@@ -19,7 +19,7 @@ export function CreateListingPage() {
         onSubmit={(input) => {
           const listing = createListing(input, user.id, user.location)
           showToast(`"${listing.title}" is now live in the marketplace.`)
-          navigate('/', { replace: true, state: { highlight: listing.id } })
+          navigate(`/listing/${listing.id}`, { replace: true })
         }}
       />
     </Screen>
