@@ -1,16 +1,14 @@
 import { Search, X } from 'lucide-react'
-import { useEffect, useState, type FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 
 interface SearchBarProps {
   value: string
   onSearch: (query: string) => void
 }
 
-/** Keyword search box. Submits on Enter; clearing it resets the search. */
+/** Keyword search box. Submits on Enter; clearing it resets the search. Re-key it to reset the draft. */
 export function SearchBar({ value, onSearch }: SearchBarProps) {
   const [draft, setDraft] = useState(value)
-
-  useEffect(() => setDraft(value), [value])
 
   const submit = (event: FormEvent) => {
     event.preventDefault()

@@ -9,7 +9,7 @@ interface LoginFormProps {
   onSuccess: () => void
 }
 
-export const DEMO_CREDENTIALS = { email: 'demo@reloop.test', password: 'demo1234' }
+const DEMO_CREDENTIALS = { email: 'demo@reloop.test', password: 'demo1234' }
 
 export function LoginForm({ initialEmail = '', onSuccess }: LoginFormProps) {
   const { login } = useAuth()

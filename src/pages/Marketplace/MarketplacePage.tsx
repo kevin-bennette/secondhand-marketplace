@@ -70,7 +70,7 @@ export function MarketplacePage() {
           <div className="flex flex-col gap-3 px-4 pb-3">
             <div className="flex gap-2">
               <div className="flex-1">
-                <SearchBar value={query} onSearch={setQuery} />
+                <SearchBar key={query} value={query} onSearch={setQuery} />
               </div>
               <FilterButton activeCount={activeFilterCount} onClick={() => setFiltersOpen(true)} />
             </div>
