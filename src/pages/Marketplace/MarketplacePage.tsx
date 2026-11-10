@@ -11,6 +11,7 @@ import { FilterButton } from '../../components/marketplace/FilterButton'
 import { FilterSheet } from '../../components/marketplace/FilterSheet'
 import { MarketplaceHeader } from '../../components/marketplace/MarketplaceHeader'
 import { InboxShortcut } from '../../components/messaging/InboxShortcut'
+import { ModerationShortcut } from '../../components/moderation/ModerationShortcut'
 import { SearchBar } from '../../components/marketplace/SearchBar'
 import { SearchResults } from '../../components/marketplace/SearchResults'
 import { Screen } from '../../components/navigation/Screen'
@@ -58,7 +59,14 @@ export function MarketplacePage() {
     <Screen
       header={
         <div className="border-b border-line bg-white">
-          <MarketplaceHeader actions={<InboxShortcut />} />
+          <MarketplaceHeader
+            actions={
+              <>
+                <ModerationShortcut />
+                <InboxShortcut />
+              </>
+            }
+          />
           <div className="flex flex-col gap-3 px-4 pb-3">
             <div className="flex gap-2">
               <div className="flex-1">

@@ -8,6 +8,7 @@ import { ListingSummary } from '../../components/listings/ListingSummary'
 import { SellerCard } from '../../components/listings/SellerCard'
 import { SimilarProducts } from '../../components/marketplace/SimilarProducts'
 import { ChatWithSellerButton } from '../../components/messaging/ChatWithSellerButton'
+import { ReportButton } from '../../components/moderation/ReportButton'
 import { PageHeader } from '../../components/navigation/PageHeader'
 import { Screen } from '../../components/navigation/Screen'
 import { SellerRating } from '../../components/reviews/SellerRating'
@@ -67,6 +68,7 @@ export function ProductDetailsPage() {
           </button>
           <div className="flex items-center gap-2">
             <SaveButton listing={listing} variant="pill" />
+            {!isOwner && <ReportButton variant="overlay" target={{ type: 'listing', id: listing.id, label: listing.title }} />}
           </div>
         </div>
       </div>
