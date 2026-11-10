@@ -1,6 +1,8 @@
-import { ChevronLeft, PackageX } from 'lucide-react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { ChevronLeft, PackageX, Pencil } from 'lucide-react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { buttonClasses } from '../../components/common/buttonStyles'
 import { EmptyState } from '../../components/common/EmptyState'
+import { DeleteListingButton } from '../../components/listings/DeleteListingButton'
 import { ImageGallery } from '../../components/listings/ImageGallery'
 import { ListingSummary } from '../../components/listings/ListingSummary'
 import { SellerCard } from '../../components/listings/SellerCard'
@@ -33,7 +35,16 @@ export function ProductDetailsPage() {
   const isOwner = listing.sellerId === user.id
 
   const footer = isOwner ? (
-    <p className="py-2 text-center text-sm text-muted">You are the seller of this listing.</p>
+    listing.status === 'active' ? (
+      <div className="grid grid-cols-2 gap-3">
+        <Link to={`/listing/${listing.id}/edit`} className={buttonClasses('primary', 'md', true)}>
+          <Pencil className="h-4 w-4" /> Edit listing
+        </Link>
+        <DeleteListingButton listing={listing} fullWidth onDeleted={() => navigate('/my-listings', { replace: true })} />
+      </div>
+    ) : (
+      <p className="py-2 text-center text-sm text-muted">You sold this item.</p>
+    )
   ) : listing.status === 'active' ? (
     <ChatWithSellerButton listing={listing} />
   ) : (
