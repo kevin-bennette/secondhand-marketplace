@@ -13,6 +13,7 @@ import { MyListingsPage } from './pages/MyListings/MyListingsPage'
 import { LoginPage } from './pages/Login/LoginPage'
 import { ProductDetailsPage } from './pages/ProductDetails/ProductDetailsPage'
 import { RegisterPage } from './pages/Register/RegisterPage'
+import { WishlistPage } from './pages/Wishlist/WishlistPage'
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
               <Route path="/sell" element={<CreateListingPage />} />
               <Route path="/inbox" element={<InboxPage />} />
               <Route path="/my-listings" element={<MyListingsPage />} />
+              <Route path="/wishlist" element={<WishlistPage />} />
             </Route>
 
             {/* Full-screen pages (no bottom navigation) */}

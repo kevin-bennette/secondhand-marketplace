@@ -14,6 +14,7 @@ import { InboxShortcut } from '../../components/messaging/InboxShortcut'
 import { SearchBar } from '../../components/marketplace/SearchBar'
 import { SearchResults } from '../../components/marketplace/SearchResults'
 import { Screen } from '../../components/navigation/Screen'
+import { SaveButton } from '../../components/wishlist/SaveButton'
 import { CATEGORIES } from '../../data/constants'
 import { useListings } from '../../hooks/useListings'
 import { useMarketplaceSearch } from '../../hooks/useMarketplaceSearch'
@@ -85,12 +86,16 @@ export function MarketplacePage() {
           </section>
           <section className="pb-2">
             <h2 className="mb-3 text-base font-bold">Fresh finds</h2>
-            <ListingGrid listings={activeListings} linkTo={(listing) => `/listing/${listing.id}`} />
+            <ListingGrid
+              listings={activeListings}
+              linkTo={(listing) => `/listing/${listing.id}`}
+              renderAction={(listing) => <SaveButton listing={listing} />}
+            />
           </section>
         </div>
       ) : (
         <div className="pt-4">
-          <SearchResults listings={results} summary={summary} onReset={reset} />
+          <SearchResults listings={results} summary={summary} onReset={reset} renderAction={(listing) => <SaveButton listing={listing} />} />
         </div>
       )}
 
