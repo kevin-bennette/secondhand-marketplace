@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { AuthProvider } from './AuthProvider'
 import { ToastProvider } from './ToastProvider'
 
 /**
@@ -6,5 +7,9 @@ import { ToastProvider } from './ToastProvider'
  * shared state here so features stay in sync (e.g. new listings update the marketplace).
  */
 export function AppProviders({ children }: { children: ReactNode }) {
-  return <ToastProvider>{children}</ToastProvider>
+  return (
+    <ToastProvider>
+      <AuthProvider>{children}</AuthProvider>
+    </ToastProvider>
+  )
 }
