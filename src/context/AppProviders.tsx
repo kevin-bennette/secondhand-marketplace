@@ -1,0 +1,10 @@
+import type { ReactNode } from 'react'
+import { ToastProvider } from './ToastProvider'
+
+/**
+ * Composes every application-wide provider. Each user story registers its
+ * shared state here so features stay in sync (e.g. new listings update the marketplace).
+ */
+export function AppProviders({ children }: { children: ReactNode }) {
+  return <ToastProvider>{children}</ToastProvider>
+}
