@@ -3,7 +3,7 @@ import { seedListings } from '../data/listings'
 import { usePersistentState } from '../hooks/usePersistentState'
 import type { Listing } from '../types/listing'
 import { createId } from '../utils/format'
-import { ListingsContext, type ListingsContextValue } from './ListingsContext'
+import { ListingsContext, type ListingsContextValue, type OwnershipResult } from './ListingsContext'
 
 /** Shared listing state: creating a listing immediately updates every screen that shows listings. */
 export function ListingsProvider({ children }: { children: ReactNode }) {
@@ -34,9 +34,44 @@ export function ListingsProvider({ children }: { children: ReactNode }) {
     [setListings],
   )
 
+  /** Ownership check shared by edit and delete: only the seller may modify a listing. */
+  const checkOwnership = useCallback(
+    (id: string, actorId: string): OwnershipResult => {
+      const listing = listings.find((item) => item.id === id)
+      if (!listing) return { ok: false, error: 'This listing no longer exists.' }
+      if (listing.sellerId !== actorId) return { ok: false, error: 'Access denied: you can only modify your own listings.' }
+      return { ok: true }
+    },
+    [listings],
+  )
+
+  const updateListing = useCallback<ListingsContextValue['updateListing']>(
+    (id, input, actorId) => {
+      const result = checkOwnership(id, actorId)
+      if (!result.ok) return result
+      setListings((current) =>
+        current.map((listing) =>
+          listing.id === id ? { ...listing, ...input, title: input.title.trim(), description: input.description.trim() } : listing,
+        ),
+      )
+      return result
+    },
+    [checkOwnership, setListings],
+  )
+
+  const deleteListing = useCallback<ListingsContextValue['deleteListing']>(
+    (id, actorId) => {
+      const result = checkOwnership(id, actorId)
+      if (!result.ok) return result
+      setListings((current) => current.filter((listing) => listing.id !== id))
+      return result
+    },
+    [checkOwnership, setListings],
+  )
+
   const value = useMemo<ListingsContextValue>(
-    () => ({ listings, activeListings, getListing, createListing }),
-    [listings, activeListings, getListing, createListing],
+    () => ({ listings, activeListings, getListing, createListing, updateListing, deleteListing }),
+    [listings, activeListings, getListing, createListing, updateListing, deleteListing],
   )
 
   return <ListingsContext.Provider value={value}>{children}</ListingsContext.Provider>
