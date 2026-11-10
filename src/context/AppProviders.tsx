@@ -2,7 +2,9 @@ import type { ReactNode } from 'react'
 import { AuthProvider } from './AuthProvider'
 import { ChatProvider } from './ChatProvider'
 import { ListingsProvider } from './ListingsProvider'
+import { ReviewsProvider } from './ReviewsProvider'
 import { ToastProvider } from './ToastProvider'
+import { TransactionsProvider } from './TransactionsProvider'
 import { WishlistProvider } from './WishlistProvider'
 
 /**
@@ -14,9 +16,13 @@ export function AppProviders({ children }: { children: ReactNode }) {
     <ToastProvider>
       <AuthProvider>
         <ListingsProvider>
-          <ChatProvider>
-            <WishlistProvider>{children}</WishlistProvider>
-          </ChatProvider>
+          <TransactionsProvider>
+            <ReviewsProvider>
+              <ChatProvider>
+                <WishlistProvider>{children}</WishlistProvider>
+              </ChatProvider>
+            </ReviewsProvider>
+          </TransactionsProvider>
         </ListingsProvider>
       </AuthProvider>
     </ToastProvider>
