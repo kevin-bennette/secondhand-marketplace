@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { EmptyState } from '../../components/common/EmptyState'
 import { ListingGrid } from '../../components/listings/ListingGrid'
+import { ReportButton } from '../../components/moderation/ReportButton'
 import { PageHeader } from '../../components/navigation/PageHeader'
 import { Screen } from '../../components/navigation/Screen'
 import { PendingReviewList } from '../../components/reviews/PendingReviewList'
@@ -55,6 +56,7 @@ export function ProfilePage() {
           { label: 'Sales', value: completedSales },
           { label: 'For sale', value: activeListings.length },
         ]}
+        actions={!isOwnProfile && <ReportButton target={{ type: 'user', id: profile.id, label: profile.name }} />}
       />
 
       <section className="px-4 pt-6">
