@@ -12,6 +12,7 @@ import { MarketplacePage } from './pages/Marketplace/MarketplacePage'
 import { MyListingsPage } from './pages/MyListings/MyListingsPage'
 import { LoginPage } from './pages/Login/LoginPage'
 import { ProductDetailsPage } from './pages/ProductDetails/ProductDetailsPage'
+import { ProfilePage } from './pages/Profile/ProfilePage'
 import { RegisterPage } from './pages/Register/RegisterPage'
 import { WishlistPage } from './pages/Wishlist/WishlistPage'
 
@@ -41,6 +42,7 @@ export default function App() {
             <Route path="/listing/:id" element={<ProductDetailsPage />} />
             <Route path="/listing/:id/edit" element={<EditListingPage />} />
             <Route path="/chat/:id" element={<ChatPage />} />
+            <Route path="/profile/:userId" element={<ProfilePage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />

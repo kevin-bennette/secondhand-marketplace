@@ -10,6 +10,8 @@ import { SimilarProducts } from '../../components/marketplace/SimilarProducts'
 import { ChatWithSellerButton } from '../../components/messaging/ChatWithSellerButton'
 import { PageHeader } from '../../components/navigation/PageHeader'
 import { Screen } from '../../components/navigation/Screen'
+import { SellerRating } from '../../components/reviews/SellerRating'
+import { BuyNowButton } from '../../components/transactions/BuyNowButton'
 import { SaveButton } from '../../components/wishlist/SaveButton'
 import { useAuth, useCurrentUser } from '../../hooks/useAuth'
 import { useListings } from '../../hooks/useListings'
@@ -47,7 +49,10 @@ export function ProductDetailsPage() {
       <p className="py-2 text-center text-sm text-muted">You sold this item.</p>
     )
   ) : listing.status === 'active' ? (
-    <ChatWithSellerButton listing={listing} />
+    <div className="grid grid-cols-2 gap-3">
+      <ChatWithSellerButton listing={listing} />
+      <BuyNowButton listing={listing} afterPurchasePath={() => `/profile/${listing.sellerId}`} />
+    </div>
   ) : (
     <p className="py-2 text-center text-sm text-muted">This item has been sold.</p>
   )
@@ -67,7 +72,21 @@ export function ProductDetailsPage() {
       </div>
 
       <ListingSummary listing={listing} />
-      <SellerCard seller={seller} location={listing.location} />
+      <SellerCard
+        seller={seller}
+        location={listing.location}
+        meta={<SellerRating userId={seller.id} />}
+        renderIdentity={(identity) => (
+          <Link to={`/profile/${seller.id}`} className="min-w-0 rounded-xl hover:opacity-80" aria-label={`View ${seller.name}'s profile`}>
+            {identity}
+          </Link>
+        )}
+        action={
+          <Link to={`/profile/${seller.id}`} className={buttonClasses('outline', 'sm')}>
+            View profile
+          </Link>
+        }
+      />
 
       <div className="h-5" />
       <SimilarProducts listing={listing} />
