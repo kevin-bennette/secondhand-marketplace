@@ -1,5 +1,6 @@
-import { Home, Plus, UserRound, type LucideIcon } from 'lucide-react'
+import { Home, MessageCircle, Plus, UserRound, type LucideIcon } from 'lucide-react'
 import type { ComponentType } from 'react'
+import { UnreadBadge } from '../messaging/UnreadBadge'
 
 export interface NavItem {
   to: string
@@ -15,5 +16,6 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   { to: '/', label: 'Home', icon: Home },
   { to: '/sell', label: 'Sell', icon: Plus, primary: true },
+  { to: '/inbox', label: 'Inbox', icon: MessageCircle, badge: UnreadBadge },
   { to: '/account', label: 'Account', icon: UserRound },
 ]
