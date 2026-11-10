@@ -16,6 +16,8 @@ import { ProfilePage } from './pages/Profile/ProfilePage'
 import { RegisterPage } from './pages/Register/RegisterPage'
 import { ModerationDashboardPage } from './pages/Reports/ModerationDashboardPage'
 import { MyReportsPage } from './pages/Reports/MyReportsPage'
+import { TransactionDetailsPage } from './pages/TransactionHistory/TransactionDetailsPage'
+import { TransactionHistoryPage } from './pages/TransactionHistory/TransactionHistoryPage'
 import { WishlistPage } from './pages/Wishlist/WishlistPage'
 
 export default function App() {
@@ -47,6 +49,8 @@ export default function App() {
             <Route path="/profile/:userId" element={<ProfilePage />} />
             <Route path="/reports" element={<MyReportsPage />} />
             <Route path="/admin/reports" element={<ModerationDashboardPage />} />
+            <Route path="/transactions" element={<TransactionHistoryPage />} />
+            <Route path="/transactions/:id" element={<TransactionDetailsPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
