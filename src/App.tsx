@@ -4,7 +4,9 @@ import { AppLayout } from './components/navigation/AppLayout'
 import { PhoneFrame } from './components/navigation/PhoneFrame'
 import { AppProviders } from './context/AppProviders'
 import { AccountPage } from './pages/Account/AccountPage'
+import { ChatPage } from './pages/Chat/ChatPage'
 import { CreateListingPage } from './pages/CreateListing/CreateListingPage'
+import { InboxPage } from './pages/Inbox/InboxPage'
 import { MarketplacePage } from './pages/Marketplace/MarketplacePage'
 import { LoginPage } from './pages/Login/LoginPage'
 import { ProductDetailsPage } from './pages/ProductDetails/ProductDetailsPage'
@@ -27,10 +29,12 @@ export default function App() {
               <Route index element={<MarketplacePage />} />
               <Route path="/account" element={<AccountPage />} />
               <Route path="/sell" element={<CreateListingPage />} />
+              <Route path="/inbox" element={<InboxPage />} />
             </Route>
 
             {/* Full-screen pages (no bottom navigation) */}
             <Route path="/listing/:id" element={<ProductDetailsPage />} />
+            <Route path="/chat/:id" element={<ChatPage />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
